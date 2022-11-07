@@ -30,9 +30,9 @@ module.exports.findOne = (req,res) => {
 }
 
 module.exports.update = (req,res) => {
-  Autore.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
-      .then((autore)=>res.json({autore:autore}))
-      .catch((err)=>res.json({message:"Algo salio mal",error:err}))
+  Autore.findOneAndUpdate({_id:req.params.id},req.body,{new:true,runValidators:true})
+      .then((autore)=>res.json({message: "", autore:autore}))
+      .catch((err)=>res.json({message:"Algo salio mal",error:err.errors}))
 }
 
 module.exports.delete = (req,res) => {

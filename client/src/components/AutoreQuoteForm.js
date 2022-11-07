@@ -65,7 +65,7 @@ const AutoreQuoteForm = (props) => {
                             </div>
                             <div className=''>
                                 <label htmlFor='content'>Content</label>
-                                <Field type="text" name="content" className="form-control" ></Field>
+                                <Field type="text" as="textarea" name="content" className="form-control" ></Field>
                                 {errors.content && touched.content && <p className=''> {errors.content} </p>}
                             </div>
                             <div className=''>
