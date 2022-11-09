@@ -14,7 +14,8 @@ const AutoreQuoteForm = (props) => {
                     genero: autor.genero,
                     content: quote.content,
                     book: quote.book,
-                    quoteType: quote.quoteType                    
+                    quoteType: quote.quoteType,                    
+                    rating: quote.quoteType,                    
                 }}
                 validationSchema={
                     Yup.object().shape({
@@ -40,7 +41,12 @@ const AutoreQuoteForm = (props) => {
                             .required("debe agregar una descripcion"),
                         quoteType: Yup
                             .string()
-                            .required("debe agregar una descripcion")             
+                            .required("debe agregar una descripcion"),       
+                        rating: Yup
+                            .number()
+                            .min(1, "rating debe de ser al menos de 1")
+                            .max(5, "el rating máximo es de 5") 
+                            .required("debe agregar calificación")             
                     })
                 }
                 onSubmit={(values,{setSubmitting})=>{
@@ -50,38 +56,49 @@ const AutoreQuoteForm = (props) => {
             >   
             {({errors, touched, handleSubmit})=>{
                 return(
-                    <div className=''>
+                    <div className='mb-3'>
                         <h1>Authors Form</h1>
                         <Form>
                             <div className='form-group'>
-                                <label htmlFor='nombre'>Nombre</label>
+                                <label className='form-label' htmlFor='nombre'>Nombre</label>
                                 <Field type="text" name="nombre" className="form-control" ></Field>
                                 {errors.nombre && touched.nombre && <p className=''> {errors.nombre} </p>}
                             </div>
-                            <div className=''>
-                                <label htmlFor='genero'>Genero</label>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='genero'>Genero</label>
                                 <Field type="text" name="genero" className="form-control" ></Field>
                                 {errors.genero && touched.genero && <p className=''> {errors.genero} </p>}
                             </div>
-                            <div className=''>
-                                <label htmlFor='content'>Content</label>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='content'>Content</label>
                                 <Field type="text" as="textarea" name="content" className="form-control" ></Field>
                                 {errors.content && touched.content && <p className=''> {errors.content} </p>}
                             </div>
-                            <div className=''>
-                                <label htmlFor='book'>Book</label>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='book'>Book</label>
                                 <Field type="text" name="book" className="form-control" ></Field>
                                 {errors.book && touched.book && <p className=''> {errors.book} </p>}
                             </div>
-                            <div className=''>
-                                <label htmlFor='quoteType'>Quote Type</label>
-                                <Field type="text" as="select" name="quoteType" className="form-control" >
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='quoteType'>Quote Type</label>
+                                <Field type="text" as="select" name="quoteType" className="form-select" >
                                     <option value="textual">Textual</option>
                                     <option value="parafraseo">Parafraseo</option>
                                 </Field>
                                 {errors.quoteType && touched.quoteType && <p className=''> {errors.quoteType} </p>}
                             </div>
-                            <button disabled={Object.values(errors).length>0 || Object.values(touched).length===0} className='' type='submit'>Enviar</button>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='rating'>Rating</label>
+                                <Field type="number" as="select" name="rating" className="form-select" >
+                                    <option value={1}>1</option>
+                                    <option value={2}>2</option>
+                                    <option value={3}>3</option>
+                                    <option value={4}>4</option>
+                                    <option value={5}>5</option>
+                                </Field>
+                                {errors.rating && touched.rating && <p className=''> {errors.rating} </p>}
+                            </div>
+                            <button disabled={Object.values(errors).length>0 || Object.values(touched).length===0} className='btn btn-success' type='submit'>Enviar</button>
                         </Form>
                         
                     </div>

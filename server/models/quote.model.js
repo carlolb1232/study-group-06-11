@@ -16,6 +16,12 @@ const QuoteSchema = new mongoose.Schema({
   quoteType: {
     type: String,
     required: [true, "El tipo de la cita es obligatorio"],
+  },
+  rating:{
+    type: Number,
+    minlength: [1,"Se necesita mínimo un 1 de calificación"],
+    maxlength: [5, "La calificación máxima es 5"],
+    required: [true, "El rating es obligatorio"],
   }
 }, {timestamps:true});
 

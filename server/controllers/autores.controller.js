@@ -10,8 +10,8 @@ module.exports.findAll = (req,res) => {
 
 module.exports.createAutore = async(req,res)=>{
     try{
-        const {nombre, genero, content, book, quoteType } = req.body;
-        const quote = new Quote({content, book, quoteType});
+        const {nombre, genero, content, book, quoteType, rating } = req.body;
+        const quote = new Quote({content, book, quoteType, rating});
         const autore = new Autore({nombre,genero});
         autore.quotes.push(quote);
         await autore.save();

@@ -8,14 +8,11 @@ import { simplePut } from '../services/simplePut';
 const UpdateAutor = (props) => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
+    
     const [autor, setAutor] = useState();
     const [errors,setErrors] = useState([]);
-    const navigate = useNavigate();
-    useEffect(() => {
-        getOneAutor();
-    },[]);
-    
-    
+
     const getOneAutor = async () => {
         try{
             const response = await simpleGet(`http://localhost:8000/api/autores/${id}`)
@@ -25,6 +22,11 @@ const UpdateAutor = (props) => {
             console.log(err);
         }
     }
+    
+    
+    useEffect(() => {
+        getOneAutor();
+    },[]);
 
     const updateAutor = async(values) =>{
         try{
@@ -36,13 +38,11 @@ const UpdateAutor = (props) => {
                 const errorResponse = response.data.error;
                 console.log("Object keys", Object.keys(errorResponse));
                 const errorArr = [];
-            for (const llave of Object.keys(errorResponse)) {
-                console.log(errorResponse[llave]);
-                errorArr.push(errorResponse[llave].message);
-
-            }
-        setErrors(errorArr);
-                
+                for (const llave of Object.keys(errorResponse)) {
+                    console.log(errorResponse[llave]);
+                    errorArr.push(errorResponse[llave].message);
+                }
+                setErrors(errorArr);
             }
         }catch(err){
             console.log(err)

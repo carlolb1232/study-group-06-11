@@ -4,8 +4,8 @@ const { Quote } = require("../models/quote.model");
 
 module.exports.createQuote = async (req, res) =>{
   try{
-    const { content, book, quoteType, idAutore} = req.body;
-    const quote = await Quote.create({content, book, quoteType});
+    const { content, book, quoteType, rating, idAutore} = req.body;
+    const quote = await Quote.create({content, book, quoteType, rating});
     const autore = await Autore.findById(idAutore).exec();
     autore.quotes.push(quote)
     await autore.save();

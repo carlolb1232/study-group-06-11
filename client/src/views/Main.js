@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AutoreQuoteForm from '../components/AutoreQuoteForm';
 import { simplePost } from '../services/simplePost';
-import {simpleGet} from '../services/simpleGet';
+import { simpleGet } from '../services/simpleGet';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -11,11 +11,11 @@ const Main = () => {
     const [autores, setAutores] = useState();
     const navigate = useNavigate();
 
-    const getAutores = async() =>{
-        try{
-            const response = await simpleGet ('http://localhost:8000/api/autores');
+    const getAutores = async () => {
+        try {
+            const response = await simpleGet('http://localhost:8000/api/autores');
             setAutores(response.data.autores)
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
@@ -24,61 +24,62 @@ const Main = () => {
     }, []);
 
     const autor = {
-        nombre:"",
-        genero:""
+        nombre: "",
+        genero: ""
     };
     const quote = {
         content: "",
         book: "",
-        quoteType:"textual"
+        quoteType: "textual",
+        rating: 0
     }
 
-    const createAutor = async(values) =>{
-        try{
-            const response = await simplePost('http://localhost:8000/api/autores',values);
+    const createAutor = async (values) => {
+        try {
+            const response = await simplePost('http://localhost:8000/api/autores', values);
             console.log(response.data.errors)
-            if(response.data.message === ""){
-                setAutores([...autores,response.data.autore])
-            }else{
+            if (response.data.message === "") {
+                setAutores([...autores, response.data.autore])
+            } else {
                 console.log("ERRORES", response.data);
                 const errorResponse = response.data.errors;
                 console.log("Object keys", Object.keys(errorResponse));
                 const errorArr = [];
-            for (const llave of Object.keys(errorResponse)) {
-                console.log(errorResponse[llave]);
-                errorArr.push(errorResponse[llave].message);
+                for (const llave of Object.keys(errorResponse)) {
+                    console.log(errorResponse[llave]);
+                    errorArr.push(errorResponse[llave].message);
+
+                }
+                setErrors(errorArr);
 
             }
-        setErrors(errorArr);
-                
-            }
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
     }
 
     return (
         <div>
-            {errors?.map((error,index)=><p key={index}>{error}</p>)}
+            {errors?.map((error, index) => <p key={index}>{error}</p>)}
             <AutoreQuoteForm autor={autor} quote={quote} onSubmitProp={createAutor}></AutoreQuoteForm>
             <table className="table">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Genero</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {autores?.map((autor)=> 
-            <tr key={autor._id}>
-                <td>{autor.nombre}</td>
-                <td>{autor.genero}</td>
-                <td><button onClick={() => navigate(`autor/${autor._id}`)}>Edit</button> <button>Delete</button> <button>Crear cita</button> </td>
-            </tr> )}
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {autores?.map((autor) =>
+                        <tr key={autor._id}>
+                            <td>{autor.nombre}</td>
+                            <td>{autor.genero}</td>
+                            <td><button onClick={() => navigate(`autor/${autor._id}`)}>Edit</button> <button>Delete</button> <button>Crear cita</button> </td>
+                        </tr>)}
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
 
 
             {autores?.map}
