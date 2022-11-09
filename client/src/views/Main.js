@@ -62,7 +62,7 @@ const Main = () => {
         <div>
             {errors?.map((error, index) => <p key={index}>{error}</p>)}
             <AutoreQuoteForm autor={autor} quote={quote} onSubmitProp={createAutor}></AutoreQuoteForm>
-            <table className="table">
+            <table className="table table-bordered border-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>
@@ -75,7 +75,7 @@ const Main = () => {
                         <tr key={autor._id}>
                             <td>{autor.nombre}</td>
                             <td>{autor.genero}</td>
-                            <td><button onClick={() => navigate(`autor/${autor._id}`)}>Edit</button> <button>Delete</button> <button>Crear cita</button> </td>
+                            <td><button onClick={() => navigate(`autor/${autor._id}`)} className="btn btn-warning">Edit</button> <button className='btn btn-danger'>Delete</button> <button className='btn btn-primary'>Crear cita</button> </td>
                         </tr>)}
 
                 </tbody>

@@ -98,7 +98,7 @@ const AutoreQuoteForm = (props) => {
                                 </Field>
                                 {errors.rating && touched.rating && <p className=''> {errors.rating} </p>}
                             </div>
-                            <button disabled={Object.values(errors).length>0 || Object.values(touched).length===0} className='btn btn-success' type='submit'>Enviar</button>
+                            <button disabled={Object.values(errors).length>0 || Object.values(touched).length===0} className='btn btn-success btn-lg' type='submit'>Enviar</button>
                         </Form>
                         
                     </div>
