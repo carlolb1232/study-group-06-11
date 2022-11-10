@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AutoreQuoteForm from '../components/AutoreQuoteForm';
 import { simplePost } from '../services/simplePost';
 import { simpleGet } from '../services/simpleGet';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Main = () => {
@@ -73,9 +73,9 @@ const Main = () => {
                 <tbody>
                     {autores?.map((autor) =>
                         <tr key={autor._id}>
-                            <td>{autor.nombre}</td>
+                            <td><Link to={`/autor/detail/${autor._id}`}>{autor.nombre}</Link></td>
                             <td>{autor.genero}</td>
-                            <td><button onClick={() => navigate(`autor/${autor._id}`)} className="btn btn-warning">Edit</button> <button className='btn btn-danger'>Delete</button> <button className='btn btn-primary'>Crear cita</button> </td>
+                            <td><button onClick={() => navigate(`autor/${autor._id}`)} className="btn btn-warning">Edit</button> <button className='btn btn-danger'>Delete</button> <Link to={`/quote/create/${autor._id}`} className='btn btn-primary'>Crear cita</Link> </td>
                         </tr>)}
 
                 </tbody>

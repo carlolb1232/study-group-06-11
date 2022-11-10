@@ -13,10 +13,16 @@ const AutoreSchema = new mongoose.Schema({
         minlength: [3,"El género literarioes muy corto"],
         maxlength: [50, "El género literario es muy largo"],
     },
-    quotes:[{type:mongoose.Schema.Types.ObjectId,ref:"Quote"}]
+    quotes:[{type:mongoose.Schema.Types.ObjectId,ref:"Quote"}],
+    average:{
+        type:Number,
+        default: 0
+    }
 },
 {timestamps:true})
 
 const Autore = mongoose.model("Autore",AutoreSchema);
+
+
 
 module.exports = Autore;
